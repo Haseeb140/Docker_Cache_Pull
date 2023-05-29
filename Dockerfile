@@ -2,7 +2,7 @@
 FROM nginx:latest
 
 # Copy custom configuration file to Nginx configuration directory
-COPY nginx.conf /etc/nginx/nginx.conf
+# COPY nginx.conf /etc/nginx/nginx.conf
 
 # Copy static files to Nginx default serving directory
 # COPY static-html /usr/share/nginx/html
