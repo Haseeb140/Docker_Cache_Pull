@@ -22,6 +22,8 @@ jobs:
       - name: Check Docker Cache
         id: cache-hit
         run: echo ::set-output name=cache-hit::$(docker pull haseeb:tkxelnginx 2>&1 )
+      - name: Check Docker Images
+        run: docker images
       - name: Build and Push Docker Image
         if: steps.cache-hit.outputs.cache-hit == '0'
         run: docker build -t haseeb/tkxelnginx .
