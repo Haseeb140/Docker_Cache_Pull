@@ -20,7 +20,7 @@ jobs:
             foo-docker-cache-
             
       - name: Build Docker image
-        run: docker build --cache-from haseeb/tkxelnginx -t haseeb/tkxelnginx .
+        run: docker build -t haseeb/tkxelnginx .
 
  
 
