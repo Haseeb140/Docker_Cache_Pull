@@ -21,7 +21,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
           
       - name: Pushing into Registry
-        run: docker push haseeb/docker-cached -u ${{ secrets.DOCKERHUB_USERNAME }}
+        run: docker push haseeb77777/github:docker-cached
 
       
  
