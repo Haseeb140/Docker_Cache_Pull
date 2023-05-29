@@ -1,4 +1,4 @@
-# Use the official Nginx base image
+# #Use the official Nginx base image
 FROM nginx:latest
 
 # Copy custom configuration file to Nginx configuration directory
