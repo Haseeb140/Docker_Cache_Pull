@@ -23,7 +23,7 @@ jobs:
       - name: Pushing into Registry
         run: |
          docker images 
-         docker push haseeb77777/github:docker-cached
+         docker push haseeb77777/github:latest
 
       
  
