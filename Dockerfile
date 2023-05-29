@@ -1,14 +1,14 @@
-# Use the official Nginx base image
-FROM nginx:latest
+# Use the official NGINX base image
+FROM nginx
 
-# Copy custom configuration file to Nginx configuration directory
-COPY nginx.conf /etc/nginx/nginx.conf
+# Copy custom configuration files (if needed)
+# COPY nginx.conf /etc/nginx/nginx.conf
 
-# Copy static files to Nginx default serving directory
-COPY static-html /usr/share/nginx/html
+# (Optional) Copy static HTML files
+# COPY static-html /usr/share/nginx/html
 
-# Expose port 80 for incoming HTTP traffic
+# Expose port 80
 EXPOSE 80
 
-# Start Nginx server in the foreground
+# Start NGINX server
 CMD ["nginx", "-g", "daemon off;"]
