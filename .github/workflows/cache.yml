@@ -15,10 +15,8 @@ jobs:
         run: docker build -t haseeb/tkxelnginx .
       
       - name: Cache Docker Images
-        uses: actions/cache@v3
-        with:
-          path: |
-            pwd
+        run: pwd
+
  
 
       
