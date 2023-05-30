@@ -1,32 +1,48 @@
-name: ci
+name: Build and Cache Docker Image
 
 on:
   push:
     branches:
-      - "master"
-########################################################################################################################################
+      - master
+
 jobs:
-  docker:
+  build:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v3
-      
-      - uses: satackey/action-docker-layer-caching@v0.0.11
-        continue-on-error: true
+
+      - name: Cache Docker layers
+        id: cache
+        uses: satackey/action-docker-layer-caching@v0.0.11
         with:
-          key: foo-docker-cache-{hash}
+          key: docker-cache-${{ github.sha }}
           restore-keys: |
-            foo-docker-cache-
-        
-      - name: Check Docker Cache
+            docker-cache-
+
+      - name: Check if cache hit
         id: cache-hit
-        run: echo ::set-output name=cache-hit::$(docker pull haseeb:tkxelnginx 2>&1 )
-      - name: Check Docker Images
-        run: docker images
-      - name: Build and Push Docker Image
-        if: steps.cache-hit.outputs.cache-hit == '0'
-        run: docker build -t haseeb/tkxelnginx .
+        run: |
+          echo ::set-output name=hit::$(if [ -z "${{ steps.cache.outputs.cache-hit }}" ]; then echo false; else echo true; fi)
+
+      - name: Load Docker image from cache
+        if: steps.cache-hit.outputs.hit == 'true'
+        run: |
+          docker load -i cache.tar
+
+      - name: Build and tag Docker image
+        run: |
+          docker build -t my-image:${{ github.sha }} .
+
+      - name: Save Docker image to cache
+        run: |
+          docker save -o cache.tar my-image:${{ github.sha }}
+
+      - name: Push Docker image
+        run: |
+          docker push my-image:${{ github.sha }}
+
           
 
  
