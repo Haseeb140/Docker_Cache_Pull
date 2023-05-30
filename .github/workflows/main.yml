@@ -3,7 +3,7 @@ name: Docker Load
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   docker_load:
@@ -22,8 +22,14 @@ jobs:
             echo "::set-output name=cache_hit::true"
           fi
       
-      - name: Load Docker image from cache or tar file
+      - name: Pull and save Docker image
         if: steps.check_cache.outputs.cache_hit != 'true'
         run: |
+          docker pull nginx
+          docker save -o nginx.tar nginx
+      
+      - name: Load Docker image from cache or tar file
+        run: |
           docker load -i nginx.tar
+      
       
