@@ -18,9 +18,9 @@ jobs:
         uses: actions/cache@v3
         with:
           path: /var/lib/docker
-          key: ${{ runner.os }}-docker-${{ hashFiles('Dockerfile') }}
+          key: ${{ runner.os }}-docker1-${{ hashFiles('Dockerfile') }}
           restore-keys: |
-            ${{ runner.os }}-docker-
+            ${{ runner.os }}-docker1-
 
       - name: Docker Pull NGINX
         if: steps.cache-nginx.outputs.cache-hit != 'true'
