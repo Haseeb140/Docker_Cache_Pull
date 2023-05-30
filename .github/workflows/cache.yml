@@ -33,11 +33,11 @@ jobs:
 
       - name: Build and tag Docker image
         run: |
-          docker build -t my-image:${{ github.sha }} .
+          docker build -t tkxel:${{ github.sha }} .
 
       - name: Save Docker image to cache
         run: |
-          docker save -o cache.tar my-image:${{ github.sha }}
+          docker save -o cache.tar tkxel:${{ github.sha }}
 
           
 
