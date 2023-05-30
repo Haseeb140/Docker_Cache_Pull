@@ -1,0 +1,27 @@
+name: Caching NGINX Docker Image
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Cache NGINX Docker Image
+        id: cache-nginx
+        uses: actions/cache@v3
+        with:
+          path: /var/lib/docker
+          key: ${{ runner.os }}-docker-${{ hashFiles('Dockerfile') }}
+          restore-keys: |
+            ${{ runner.os }}-docker-
+
+      - name: Docker Pull NGINX
+        if: steps.cache-nginx.outputs.cache-hit != 'true'
+        run: docker pull nginx
