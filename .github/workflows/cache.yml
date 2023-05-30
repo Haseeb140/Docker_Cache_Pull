@@ -39,10 +39,6 @@ jobs:
         run: |
           docker save -o cache.tar my-image:${{ github.sha }}
 
-      - name: Push Docker image
-        run: |
-          docker push my-image:${{ github.sha }}
-
           
 
  
